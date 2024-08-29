@@ -1,4 +1,5 @@
 "use client";
+import styles from "../page.module.css";
 import { useState } from "react";
 interface SearchBarProps {
   placeholder: string;
@@ -8,14 +9,10 @@ interface SearchBarProps {
 const SearchBar = ({ placeholder, onSearch }: SearchBarProps): JSX.Element => {
   const [query, setQuery] = useState<string>("");
 
-  //sets the query to what is being searched
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setQuery(e.target.value);
-  };
-
   //prevents running default requests when submitted
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    onSearch(query);
   };
 
   return (
@@ -24,9 +21,14 @@ const SearchBar = ({ placeholder, onSearch }: SearchBarProps): JSX.Element => {
         <input
           placeholder={placeholder}
           value={query}
-          onChange={handleChange}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+            setQuery(e.target.value);
+            onSearch(e.target.value);
+          }}
         />
-        <button type="submit">Search</button>
+        <button className={styles.button} type="submit">
+          Search
+        </button>
       </form>
     </div>
   );
