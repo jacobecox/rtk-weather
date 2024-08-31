@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
-import locationReducer from "./slices/location";
+import searchReducer from "./slices/search";
+import locationsReducer from "./slices/locations";
 
 const rootReducer = combineReducers({
-  location: locationReducer,
-  // weather: weatherReducer
+  search: searchReducer,
+  location: locationsReducer,
 });
 
 export default rootReducer;

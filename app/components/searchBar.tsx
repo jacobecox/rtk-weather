@@ -1,18 +1,20 @@
 "use client";
 import styles from "../page.module.css";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchQuery } from "../store/slices/search";
+
 interface SearchBarProps {
   placeholder: string;
-  onSearch: (query: string) => void;
 }
-//onSearch will be passed onto another component that fetches the API request
-const SearchBar = ({ placeholder, onSearch }: SearchBarProps): JSX.Element => {
-  const [query, setQuery] = useState<string>("");
 
-  //prevents running default requests when submitted
+const SearchBar = ({ placeholder }: SearchBarProps): JSX.Element => {
+  const dispatch = useDispatch(); //allows store to listen to events
+  const [query, setQuery] = useState<string>(""); //allows query to be set as state
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    onSearch(query);
+    e.preventDefault(); //prevents running default requests when submitted
+    dispatch(setSearchQuery(query)); //assigns the query to store via slice when searched
   };
 
   return (
@@ -23,7 +25,6 @@ const SearchBar = ({ placeholder, onSearch }: SearchBarProps): JSX.Element => {
           value={query}
           onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
             setQuery(e.target.value);
-            onSearch(e.target.value);
           }}
         />
         <button className={styles.button} type="submit">
