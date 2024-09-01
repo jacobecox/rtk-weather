@@ -1,21 +1,20 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { RootState } from "../configureStore";
+
+const API_KEY: string = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
 export const fetchLocations = createAsyncThunk(
   "locations/fetchLocations",
   async () => {
-    const query = useSelector((state) => state.search.query);
+    const query: string = useSelector((state: RootState) => state.search.query);
     const dispatch = useDispatch();
-    const API_KEY: string = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
-    const API: string = `http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=${API_KEY}`;
-    if (query == "") {
-      console.log("unable to fetch query");
-    } else {
-      const response = await axios.get(API);
-      dispatch(setLocation(response.data));
-      return response.data;
-    }
+    const response = await axios.get(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=${API_KEY}`
+    );
+    dispatch(setLocation(response.data));
+    return response.data;
   }
 );
 
