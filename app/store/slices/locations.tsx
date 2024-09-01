@@ -1,33 +1,46 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { RootState } from "../configureStore";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../configureStore";
 
 const API_KEY: string = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
-export const fetchLocations = createAsyncThunk(
+export const fetchLocation = createAsyncThunk<Location, QueryPayload>(
   "locations/fetchLocations",
-  async () => {
-    const query: string = useSelector((state: RootState) => state.search.query);
-    const dispatch = useDispatch();
-    const response = await axios.get(
+  async (query: QueryPayload) => {
+    const response = await axios.get<Location>(
       `http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=${API_KEY}`
     );
-    dispatch(setLocation(response.data));
     return response.data;
   }
 );
 
-interface SearchLocation {
-  //set types for initialState
-  locations: [];
-  status: string;
-  error: string;
+// stuck trying to store data from fetchLocations
+export const StoreData = (response) => {
+  const dispatch = useDispatch<AppDispatch>();
+  dispatch(setLocation(response.data));
+};
+
+type QueryPayload = string;
+
+interface LocationParams {
+  lat: number;
+  lon: number;
 }
 
-const initialState: SearchLocation = {
-  locations: [],
-  status: "idle",
+interface Location {
+  location: LocationParams[];
+}
+
+interface FetchStatus {
+  location: LocationParams[];
+  loading: boolean;
+  error: string | null;
+}
+
+const initialState: FetchStatus = {
+  location: [],
+  loading: false,
   error: null,
 };
 
@@ -36,20 +49,23 @@ export const locationsSlice = createSlice({
   initialState,
   reducers: {
     setLocation(state, action: PayloadAction<[]>) {
-      state.locations = action.payload; //state.location is where the location is stored
+      state.location = action.payload; //state.location is where the location is stored
     },
   },
 
   extraReducers: (builder) => {
-    builder.addCase(fetchLocations.pending, (state) => {
-      state.status = "loading";
+    builder.addCase(fetchLocation.pending, (state) => {
+      state.loading = true;
     });
-    builder.addCase(fetchLocations.fulfilled, (state, action) => {
-      state.status = "succeeded";
-      state.locations = action.payload;
-    });
-    builder.addCase(fetchLocations.rejected, (state, action) => {
-      state.status = "failed";
+    builder.addCase(
+      fetchLocation.fulfilled,
+      (state, action: PayloadAction<Location>) => {
+        state.loading = false;
+        state.location = action.payload.location;
+      }
+    );
+    builder.addCase(fetchLocation.rejected, (state, action) => {
+      state.loading = false;
       state.error = action.error.message;
     });
   },

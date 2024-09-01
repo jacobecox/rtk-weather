@@ -3,18 +3,21 @@ import styles from "../page.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchQuery } from "../store/slices/search";
+import { fetchLocation } from "../store/slices/locations";
+import { AppDispatch } from "../store/configureStore";
 
 interface SearchBarProps {
   placeholder: string;
 }
 
 const SearchBar = ({ placeholder }: SearchBarProps): JSX.Element => {
-  const dispatch = useDispatch(); //allows store to listen to events
+  const dispatch = useDispatch<AppDispatch>(); //allows store to listen to events
   const [query, setQuery] = useState<string>(""); //allows query to be set as state
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault(); //prevents running default requests when submitted
-    dispatch(setSearchQuery(query)); //assigns the query to store via slice when searched
+    dispatch(setSearchQuery(query));
+    dispatch(fetchLocation(query)); //assigns the query to store via slice when searched
   };
 
   return (
