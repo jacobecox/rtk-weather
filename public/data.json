@@ -1,0 +1,39 @@
+[
+  {
+    "name": "Austin",
+    "local_names": {
+      "it": "Austin",
+      "sr": "Остин",
+      "el": "Ώστιν",
+      "hi": "ऑस्टिन",
+      "gr": "Αὐγούστα",
+      "pl": "Austin",
+      "uk": "Остін",
+      "ta": "ஆஸ்டின்",
+      "fr": "Austin",
+      "ru": "Остин",
+      "bn": "অস্টিন",
+      "ar": "أوستن",
+      "te": "ఆస్టిన్",
+      "fa": "آستین",
+      "en": "Austin",
+      "es": "Austin",
+      "de": "Austin",
+      "zh": "奥斯汀 / 柯士甸",
+      "ku": "Austin",
+      "be": "Остын",
+      "he": "אוסטין",
+      "ur": "آسٹن",
+      "ja": "オースティン",
+      "vi": "Austin",
+      "tr": "Austin",
+      "eo": "Aŭstino",
+      "ko": "오스틴",
+      "pt": "Austin"
+    },
+    "lat": 30.2711286,
+    "lon": -97.7436995,
+    "country": "US",
+    "state": "Texas"
+  }
+]

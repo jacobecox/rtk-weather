@@ -3,19 +3,27 @@ import styles from "./page.module.css";
 import SearchBar from "./components/searchBar";
 import { useEffect } from "react";
 import { fetchLocation } from "./store/slices/locations";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function App() {
 
-  // const locations = useSelector((state) => state.location.location);
+  const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(fetchLocation());
+	}, [dispatch]);
 
-  // const renderLocations = () => {
-  //   return locations.map((location) => {
-  //     return(
-  //       <p key={location.id}>location: {location}</p>
-  //     )
-  //   })
-  // }
+  const locations = useSelector((state) => state.location.location);
+
+  const renderLocation = () => {
+    console.log(locations)
+		return locations.map?.((location) => {
+			return (
+				<span className='label label-primary' key={location}>
+					location: {location.name}
+				</span>
+			);
+		});
+	};
 
   return (
     <main className={styles.main}>
@@ -23,7 +31,7 @@ export default function App() {
         <h1>Weather App</h1>
         <br />
         <SearchBar placeholder="search your city" />
-        {/* <ul>{renderLocations()}</ul> */}
+        <p>coordinates: {renderLocation()}</p>
       </header>
     </main>
   );
