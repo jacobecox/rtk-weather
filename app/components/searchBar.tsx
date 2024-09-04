@@ -9,11 +9,16 @@ interface SearchBarProps {
   placeholder: string;
 }
 
+//NEED TO FIX
+//if search query = '' do  not get fetch api request
+
 const SearchBar = ({ placeholder }: SearchBarProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>(); //allows store to listen to events
   const [query, setQuery] = useState<string>(""); //allows query to be set as state
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault(); //prevents running default requests when submitted
+    setQuery(""); //reverts to empty search field
     dispatch(fetchLocation(query)); //assigns the query to store via slice when searched
   };
 

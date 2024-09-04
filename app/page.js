@@ -19,7 +19,7 @@ export default function App() {
 		return locations.map?.((location) => {
 			return (
 				<span className='label label-primary' key={location}>
-					location: {location.name}
+					{location.lat}, {location.lon}
 				</span>
 			);
 		});

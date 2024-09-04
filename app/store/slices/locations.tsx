@@ -1,12 +1,5 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../configureStore";
-
-//READ ME
-//I've been able to see the data console logged in response.data so I know the data is passed into the store. Redux devtools have been giving me issues by not running every time I pass a value or refresh the browser. Not sure if it's something I'm not doing.
-//the thing I am unable to get past right now is viewing the data on page.js and I'm not 100% sure what the issue could be. I am using useEffect to mount to the store and mapping what I believe is the data. Not sure how to find the parameters inside the data within the store.
-//Thanks for any help!
 
 const API_KEY: string = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
@@ -15,11 +8,9 @@ export const fetchLocation = createAsyncThunk<Location, QueryPayload>(
   async (query: QueryPayload) => {
     //query is whatever is searched in SearchBar
     const response = await axios.get(
-      // `http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=${API_KEY}`
-      "./data.json"
+      `http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=${API_KEY}`
+      // "./data.json"
     );
-    const dispatch = useDispatch<AppDispatch>();
-    dispatch(setLocation(response.data)); //this stores the api's response.data in the store for global access
     return response.data;
   }
 );
@@ -62,9 +53,9 @@ export const locationsSlice = createSlice({
     });
     builder.addCase(
       fetchLocation.fulfilled,
-      (state, action: PayloadAction<Location>) => {
+      (state, action: PayloadAction<any>) => {
         state.loading = false;
-        state.location = action.payload.location;
+        state.location = action.payload;
       }
     );
     builder.addCase(fetchLocation.rejected, (state, action) => {
