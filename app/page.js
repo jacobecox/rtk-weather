@@ -15,7 +15,6 @@ export default function App() {
   const locations = useSelector((state) => state.location.location);
 
   const renderLocation = () => {
-    console.log(locations)
 		return locations.map?.((location) => {
 			return (
 				<span className='label label-primary' key={location}>

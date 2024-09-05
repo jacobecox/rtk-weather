@@ -6,6 +6,9 @@ const API_KEY: string = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 export const fetchLocation = createAsyncThunk<Location, QueryPayload>(
   "location/fetchLocation",
   async (query: QueryPayload) => {
+    if (query.trim() === "") {
+      return; // Don't make the API request if the query is empty
+    }
     //query is whatever is searched in SearchBar
     const response = await axios.get(
       `http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=${API_KEY}`
