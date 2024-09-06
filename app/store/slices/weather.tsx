@@ -1,22 +1,21 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { LocationParams } from "./locations";
 
 const API_KEY: string = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
 export const fetchWeather = createAsyncThunk<Weather, LocationParams>(
   "weather/fetchWeather",
   async (location) => {
+    if (location === undefined) {
+      return; // Don't make the API request if the query is empty
+    }
     const response = await axios.get(
       `http://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`
     );
     return response.data;
   }
 );
-
-interface LocationParams {
-  lat: number;
-  lon: number;
-}
 
 interface WeatherData {
   temp: number;
@@ -62,6 +61,7 @@ export const weatherSlice = createSlice({
       }
     );
     builder.addCase(fetchWeather.rejected, (state, action) => {
+      console.log(action);
       state.loading = false;
       state.error = action.error.message;
     });

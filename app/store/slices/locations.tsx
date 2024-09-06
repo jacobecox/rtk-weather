@@ -19,9 +19,11 @@ export const fetchLocation = createAsyncThunk<LocationParams, QueryPayload>(
 
 type QueryPayload = string;
 
-interface LocationParams {
+export interface LocationParams {
+  name: string;
   lat: number;
   lon: number;
+  location: any;
 }
 
 interface FetchStatus {
