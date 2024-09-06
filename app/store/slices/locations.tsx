@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
 const API_KEY: string = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
-export const fetchLocation = createAsyncThunk<Location, QueryPayload>(
+export const fetchLocation = createAsyncThunk<LocationParams, QueryPayload>(
   "location/fetchLocation",
   async (query: QueryPayload) => {
     if (query.trim() === "") {
@@ -12,7 +12,6 @@ export const fetchLocation = createAsyncThunk<Location, QueryPayload>(
     //query is whatever is searched in SearchBar
     const response = await axios.get(
       `http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=${API_KEY}`
-      // "./data.json"
     );
     return response.data;
   }
@@ -23,10 +22,6 @@ type QueryPayload = string;
 interface LocationParams {
   lat: number;
   lon: number;
-}
-
-interface Location {
-  location: LocationParams[];
 }
 
 interface FetchStatus {
@@ -57,6 +52,7 @@ export const locationsSlice = createSlice({
     builder.addCase(
       fetchLocation.fulfilled,
       (state, action: PayloadAction<any>) => {
+        console.log(action);
         state.loading = false;
         state.location = action.payload;
       }

@@ -1,21 +1,19 @@
 "use client";
 import styles from "./page.module.css";
 import SearchBar from "./components/searchBar";
-import { useEffect } from "react";
-import { fetchLocation } from "./store/slices/locations";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchWeather } from "./store/slices/weather";
 
 export default function App() {
 
-  const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(fetchLocation());
-	}, [dispatch]);
+  //NEEDS FIXING: error about updating component App() while rendering App() not possible
 
   const locations = useSelector((state) => state.location.location);
+  const dispatch = useDispatch();
 
   const renderLocation = () => {
 		return locations.map?.((location) => {
+      dispatch(fetchWeather(location))
 			return (
 				<span className='label label-primary' key={location}>
 					{location.lat}, {location.lon}
