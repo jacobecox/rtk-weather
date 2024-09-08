@@ -11,9 +11,12 @@ export default function SearchWeather() {
   );
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
+    if (locations === undefined) {
+      return;
+    } //if there is no data in locations just return
     dispatch(fetchWeather(locations[0]));
   }, [dispatch, locations]);
-  return locations.map?.((location: LocationParams) => {
+  return locations?.map?.((location: LocationParams) => {
     return (
       <p key={location.name}>
         coordinates: {location.name} {location.lat} {location.lon}

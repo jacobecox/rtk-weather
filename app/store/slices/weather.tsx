@@ -4,27 +4,30 @@ import { LocationParams } from "./locations";
 
 const API_KEY: string = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
-export const fetchWeather = createAsyncThunk<Weather, LocationParams>(
+export const fetchWeather = createAsyncThunk<WeatherData, LocationParams>(
   "weather/fetchWeather",
   async (location) => {
     if (location === undefined) {
       return; // Don't make the API request if the query is empty
     }
     const response = await axios.get(
-      `http://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`
+      `http://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}&units=imperial`
     );
     return response.data;
   }
 );
 
-interface WeatherData {
+export interface Main {
+  //this is what the weather data is stored in the api call
+  main: WeatherData;
+}
+
+export interface WeatherData {
   temp: number;
   pressure: number;
   humidity: number;
-}
-
-interface Weather {
-  weather: WeatherData[];
+  dt: number;
+  weather: any;
 }
 
 interface FetchStatus {

@@ -25,7 +25,7 @@
     "**/*.tsx",
     "app/store/slices/search.tsx",
     "app/store/slices/weather.tsx",
-    "app/page.js",
+    "app/page.tsx",
     "app/store/slices/locations.tsx"
   ],
   "exclude": ["node_modules"]
