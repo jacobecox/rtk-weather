@@ -3,7 +3,6 @@ import styles from "./page.module.css";
 import SearchBar from "./components/searchBar";
 import RenderHumidity from "./components/renderHumidity";
 import SearchWeather from "./components/searchWeather";
-import { Sparklines } from "react-sparklines";
 
 export default function App(): JSX.Element {
   return (
