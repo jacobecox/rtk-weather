@@ -16,17 +16,20 @@ export const fetchWeather = createAsyncThunk<WeatherData, LocationParams>(
     return response.data;
   }
 );
+export interface List {
+  list: Main;
+}
 
 export interface Main {
   //this is what the weather data is stored in the api call
   main: WeatherData;
+  dt: number;
 }
 
 export interface WeatherData {
   temp: number;
   pressure: number;
   humidity: number;
-  dt: number;
   weather: any;
 }
 
