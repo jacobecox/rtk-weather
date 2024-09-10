@@ -19,7 +19,7 @@ const SearchBar = ({ placeholder }: SearchBarProps): JSX.Element => {
     dispatch(fetchLocation(query));
   };
   return (
-    <div>
+    <div className="text-center">
       <form onSubmit={handleSubmit}>
         <input
           placeholder={placeholder}

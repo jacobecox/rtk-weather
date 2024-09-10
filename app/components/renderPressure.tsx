@@ -9,6 +9,14 @@ import {
 
 export default function RenderPressure() {
   const conditions = useSelector((state: WeatherData) => state.weather.weather); //pulls current state in redux store
+
+  useEffect(() => {
+    findPressure;
+  }, []); //listens and updates when findPressure changes
+
+  if (conditions === undefined) { //if there are no conditons (api hasn't returned anything), then just return
+    return;
+  }
   const findPressure = () => {
     return conditions?.list?.map?.((weather: Main) => {
       return weather.main.pressure; //takes the pressure over the next 5 days
@@ -24,10 +32,6 @@ export default function RenderPressure() {
   );
   const averageTotal = sum / pressureArray?.length; //finds average pressure
   const average = Math.round(averageTotal); //rounds to whole number
-
-  useEffect(() => {
-    findPressure;
-  }, [pressureArray]); //listens and updates tempArray when findTemp changes
 
   return (
     <span>

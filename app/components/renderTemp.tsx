@@ -9,6 +9,14 @@ import {
 
 export default function RenderTemp() {
   const conditions = useSelector((state: WeatherData) => state.weather.weather); //pulls current state in redux store
+
+  useEffect(() => {
+    findTemp;
+  }, []); //listens and updates when findTemp changes
+
+  if (conditions === undefined) { //if there are no conditons (api hasn't returned anything), then just return
+    return;
+  }
   const findTemp = () => {
     return conditions?.list?.map?.((weather: Main) => {
       return weather.main.temp; //takes the temperature over the next 5 days
@@ -21,10 +29,6 @@ export default function RenderTemp() {
   }, 0);
   const averageTotal = sum / tempArray?.length; //finds average temperature
   const average = Math.round(averageTotal); //rounds to whole number
-
-  useEffect(() => {
-    findTemp;
-  }, [tempArray]); //listens and updates tempArray when findTemp changes
 
   return (
     <span>

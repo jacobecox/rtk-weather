@@ -18,9 +18,8 @@ export default function SearchWeather() {
   }, [dispatch, locations]);
   return locations?.map?.((location: LocationParams) => {
     return (
-      <p key={location.name}>
-        coordinates: {location.name} {location.lat} {location.lon}
-      </p>
+      //returning the city name
+      <p key={location.name}>{location.name}</p>
     );
   });
 }
