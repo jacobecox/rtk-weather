@@ -2,6 +2,8 @@
 import styles from "./page.module.css";
 import SearchBar from "./components/searchBar";
 import RenderHumidity from "./components/renderHumidity";
+import RenderTemp from "./components/renderTemp";
+import RenderPressure from "./components/renderPressure";
 import SearchWeather from "./components/searchWeather";
 
 export default function App(): JSX.Element {
@@ -13,6 +15,8 @@ export default function App(): JSX.Element {
         <SearchBar placeholder="search your city" />
         <SearchWeather />
         <RenderHumidity />
+        <RenderTemp />
+        <RenderPressure />
       </header>
     </main>
   );
