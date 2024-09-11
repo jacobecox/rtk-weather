@@ -19,7 +19,9 @@ export default function SearchWeather() {
   return locations?.map?.((location: LocationParams) => {
     return (
       //returning the city name
-      <p key={location.name}>{location.name}</p>
+      <p key={location.name} className="text-center">
+        {location.name}
+      </p>
     );
   });
 }

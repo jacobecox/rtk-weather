@@ -14,7 +14,8 @@ export default function RenderTemp() {
     findTemp;
   }, []); //listens and updates when findTemp changes
 
-  if (conditions === undefined) { //if there are no conditons (api hasn't returned anything), then just return
+  if (conditions === undefined) {
+    //if there are no conditons (api hasn't returned anything), then just return
     return;
   }
   const findTemp = () => {
@@ -31,9 +32,9 @@ export default function RenderTemp() {
   const average = Math.round(averageTotal); //rounds to whole number
 
   return (
-    <span>
+    <span className="text-center">
       <Sparklines data={tempArray}>
-        <SparklinesLine />
+        <SparklinesLine color="blue" />
         <SparklinesReferenceLine type="mean" />
       </Sparklines>
       <p>{average}ºF</p>

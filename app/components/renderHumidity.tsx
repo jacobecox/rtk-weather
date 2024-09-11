@@ -13,7 +13,8 @@ export default function RenderHumidity() {
     findHumidity;
   }, []); //listens and updates when findHumidity changes
 
-  if (conditions === undefined) { //if there are no conditons (api hasn't returned anything), then just return
+  if (conditions === undefined) {
+    //if there are no conditons (api hasn't returned anything), then just return
     return;
   }
   const findHumidity = () => {
@@ -33,9 +34,9 @@ export default function RenderHumidity() {
   const average = Math.round(averageTotal); //rounds to whole number
 
   return (
-    <span>
+    <span className="text-center">
       <Sparklines data={humidityArray}>
-        <SparklinesLine />
+        <SparklinesLine color="green" />
         <SparklinesReferenceLine type="mean" />
       </Sparklines>
       <p>{average}%</p>

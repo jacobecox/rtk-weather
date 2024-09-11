@@ -14,7 +14,8 @@ export default function RenderPressure() {
     findPressure;
   }, []); //listens and updates when findPressure changes
 
-  if (conditions === undefined) { //if there are no conditons (api hasn't returned anything), then just return
+  if (conditions === undefined) {
+    //if there are no conditons (api hasn't returned anything), then just return
     return;
   }
   const findPressure = () => {
@@ -34,12 +35,12 @@ export default function RenderPressure() {
   const average = Math.round(averageTotal); //rounds to whole number
 
   return (
-    <span>
+    <span className="text-center">
       <Sparklines data={pressureArray}>
-        <SparklinesLine />
+        <SparklinesLine color="red" />
         <SparklinesReferenceLine type="mean" />
       </Sparklines>
-      <p>{average}inHg</p>
+      <p>{average}hPa</p>
     </span>
   );
 }

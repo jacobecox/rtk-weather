@@ -9,7 +9,7 @@ interface SearchBarProps {
   placeholder: string;
 }
 
-const SearchBar = ({ placeholder }: SearchBarProps): JSX.Element => {
+const SearchBar = ({ placeholder}: SearchBarProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>(); //allows store to listen to events
   const [query, setQuery] = useState<string>(""); //allows query to be set as state
 

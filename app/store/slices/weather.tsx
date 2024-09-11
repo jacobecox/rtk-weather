@@ -61,13 +61,11 @@ export const weatherSlice = createSlice({
     builder.addCase(
       fetchWeather.fulfilled,
       (state, action: PayloadAction<any>) => {
-        console.log(action);
         state.loading = false;
         state.weather = action.payload;
       }
     );
     builder.addCase(fetchWeather.rejected, (state, action) => {
-      console.log(action);
       state.loading = false;
       state.error = action.error.message;
     });

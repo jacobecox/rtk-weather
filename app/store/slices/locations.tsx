@@ -54,7 +54,6 @@ export const locationsSlice = createSlice({
     builder.addCase(
       fetchLocation.fulfilled,
       (state, action: PayloadAction<any>) => {
-        console.log(action);
         state.loading = false;
         state.location = action.payload;
       }
