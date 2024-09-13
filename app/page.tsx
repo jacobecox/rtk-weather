@@ -3,7 +3,6 @@ import styles from "./page.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchBar from "./components/searchBar";
 import RenderWeather from "./components/renderWeather";
-import { useState } from "react";
 
 export default function App(): JSX.Element {
   return (

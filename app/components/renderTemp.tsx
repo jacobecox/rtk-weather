@@ -1,6 +1,9 @@
 import { useSelector } from "react-redux";
 import { WeatherData, Main } from "../store/slices/weather";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store/configureStore";
+// import { setTemp } from "../store/slices/weather";
 import {
   Sparklines,
   SparklinesLine,
@@ -10,9 +13,11 @@ import {
 export default function RenderTemp() {
   const conditions = useSelector((state: WeatherData) => state.weather.weather); //pulls current state in redux store
 
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
+    // dispatch(setTemp(tempArray));
     findTemp;
-  }, []); //listens and updates when findTemp changes
+  }, []); //triggers findTemp and dispatch array to slice
 
   if (conditions === undefined) {
     //if there are no conditons (api hasn't returned anything), then just return
@@ -29,7 +34,7 @@ export default function RenderTemp() {
     return accumulator + currentValue;
   }, 0);
   const averageTotal = sum / tempArray?.length; //finds average temperature
-  const average = Math.round(averageTotal); //rounds to whole number
+  const tempAverage = Math.round(averageTotal); //rounds to whole number
 
   return (
     <span className="text-center">
@@ -37,7 +42,7 @@ export default function RenderTemp() {
         <SparklinesLine color="blue" />
         <SparklinesReferenceLine type="mean" />
       </Sparklines>
-      <p>{average}ºF</p>
+      <p>{tempAverage}ºF</p>
     </span>
   );
 }

@@ -2,7 +2,6 @@ import RenderHumidity from "./renderHumidity";
 import RenderPressure from "./renderPressure";
 import RenderTemp from "./renderTemp";
 import SearchWeather from "./searchWeather";
-import { useState, useEffect } from "react";
 
 const RenderWeather = () => {
   return (

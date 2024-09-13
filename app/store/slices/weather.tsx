@@ -16,9 +16,15 @@ export const fetchWeather = createAsyncThunk<WeatherData, LocationParams>(
     return response.data;
   }
 );
-export interface List {
-  list: Main;
-}
+
+// export const fetchTemp = createAsyncThunk(
+//   "temp/fetchTemp",
+//   async (tempArray) => {
+//     const response = await axios.get("./components/renderTemp");
+//     console.log(response);
+//     return response;
+//   }
+// );
 
 export interface Main {
   //this is what the weather data is stored in the api call
@@ -33,14 +39,20 @@ export interface WeatherData {
   weather: any;
 }
 
+interface TempData {
+  tempArray: [];
+}
+
 interface FetchStatus {
   weather: WeatherData[];
+  temp: TempData[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: FetchStatus = {
   weather: [],
+  temp: [],
   loading: false,
   error: null,
 };
@@ -49,9 +61,14 @@ export const weatherSlice = createSlice({
   name: "weather",
   initialState, //state before reducer is used
   reducers: {
-    setWeather(state, action: PayloadAction<[]>) {
+    setWeather(state, action: PayloadAction<any>) {
       state.weather = action.payload; //state.weather is where the weather is stored
+      console.log(action);
     },
+    // setTemp: (state, action: PayloadAction<any>) => {
+    //   state.temp = action.payload;
+    //   console.log(action);
+    // },
   },
 
   extraReducers: (builder) => {
@@ -63,12 +80,28 @@ export const weatherSlice = createSlice({
       (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.weather = action.payload;
+        console.log(action);
       }
     );
     builder.addCase(fetchWeather.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });
+    // builder.addCase(fetchTemp.pending, (state) => {
+    //   state.loading = true;
+    // });
+    // builder.addCase(
+    //   fetchTemp.fulfilled,
+    //   (state, action: PayloadAction<any>) => {
+    //     state.loading = false;
+    //     state.temp = action.payload;
+    //     console.log(action);
+    //   }
+    // );
+    // builder.addCase(fetchTemp.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.error.message;
+    // });
   },
 });
 
