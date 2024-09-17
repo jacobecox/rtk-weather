@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { WeatherData, Main } from "../store/slices/weather";
+import { WeatherData, WeatherContainer } from "../store/slices/weather";
 import { useEffect } from "react";
 import {
   Sparklines,
@@ -19,7 +19,7 @@ export default function RenderPressure() {
     return;
   }
   const findPressure = () => {
-    return conditions?.list?.map?.((weather: Main) => {
+    return conditions?.list?.map?.((weather: WeatherContainer) => {
       return weather.main.pressure; //takes the pressure over the next 5 days
     });
   };

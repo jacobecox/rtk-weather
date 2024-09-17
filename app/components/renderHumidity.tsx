@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { WeatherData, Main } from "../store/slices/weather";
+import { WeatherData, WeatherContainer } from "../store/slices/weather";
 import { useEffect } from "react";
 import {
   Sparklines,
@@ -18,7 +18,7 @@ export default function RenderHumidity() {
     return;
   }
   const findHumidity = () => {
-    return conditions?.list?.map?.((weather: Main) => {
+    return conditions?.list?.map?.((weather: WeatherContainer) => {
       return weather.main.humidity; //takes the humidity over the next 5 days
     });
   };

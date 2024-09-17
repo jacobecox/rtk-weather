@@ -17,19 +17,11 @@ export const fetchWeather = createAsyncThunk<WeatherData, LocationParams>(
   }
 );
 
-// export const fetchTemp = createAsyncThunk(
-//   "temp/fetchTemp",
-//   async (tempArray) => {
-//     const response = await axios.get("./components/renderTemp");
-//     console.log(response);
-//     return response;
-//   }
-// );
-
-export interface Main {
+export interface WeatherContainer {
   //this is what the weather data is stored in the api call
   main: WeatherData;
   dt: number;
+  list: any;
 }
 
 export interface WeatherData {
@@ -60,16 +52,7 @@ const initialState: FetchStatus = {
 export const weatherSlice = createSlice({
   name: "weather",
   initialState, //state before reducer is used
-  reducers: {
-    setWeather(state, action: PayloadAction<any>) {
-      state.weather = action.payload; //state.weather is where the weather is stored
-      console.log(action);
-    },
-    // setTemp: (state, action: PayloadAction<any>) => {
-    //   state.temp = action.payload;
-    //   console.log(action);
-    // },
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     builder.addCase(fetchWeather.pending, (state) => {
@@ -79,31 +62,14 @@ export const weatherSlice = createSlice({
       fetchWeather.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.loading = false;
-        state.weather = action.payload;
-        console.log(action);
+        state.weather.push(action.payload);
       }
     );
     builder.addCase(fetchWeather.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });
-    // builder.addCase(fetchTemp.pending, (state) => {
-    //   state.loading = true;
-    // });
-    // builder.addCase(
-    //   fetchTemp.fulfilled,
-    //   (state, action: PayloadAction<any>) => {
-    //     state.loading = false;
-    //     state.temp = action.payload;
-    //     console.log(action);
-    //   }
-    // );
-    // builder.addCase(fetchTemp.rejected, (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.error.message;
-    // });
   },
 });
 
-export const { setWeather } = weatherSlice.actions;
 export default weatherSlice.reducer;

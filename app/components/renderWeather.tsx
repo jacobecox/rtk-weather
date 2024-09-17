@@ -1,14 +1,14 @@
 import RenderHumidity from "./renderHumidity";
 import RenderPressure from "./renderPressure";
 import RenderTemp from "./renderTemp";
-import SearchWeather from "./searchWeather";
+import SearchCity from "./searchCity";
 
 const RenderWeather = () => {
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-3">
-          <SearchWeather />
+          <SearchCity />
         </div>
         <div className="col-md-3">
           <RenderTemp />

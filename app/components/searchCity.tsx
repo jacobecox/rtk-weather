@@ -5,7 +5,7 @@ import { fetchWeather } from "../store/slices/weather";
 import { LocationParams } from "../store/slices/locations";
 import { useEffect } from "react";
 
-export default function SearchWeather() {
+export default function SearchCity() {
   const locations = useSelector(
     (state: LocationParams) => state.location.location
   );
