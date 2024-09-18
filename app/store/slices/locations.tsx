@@ -41,11 +41,7 @@ const initialState: FetchStatus = {
 export const locationsSlice = createSlice({
   name: "location",
   initialState, //state before reducer is used
-  reducers: {
-    setLocation(state, action: PayloadAction<[]>) {
-      state.location = action.payload; //state.location is where the location is stored
-    },
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     builder.addCase(fetchLocation.pending, (state) => {
@@ -55,7 +51,7 @@ export const locationsSlice = createSlice({
       fetchLocation.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.loading = false;
-        state.location = action.payload;
+        state.location.push(action.payload);
       }
     );
     builder.addCase(fetchLocation.rejected, (state, action) => {
@@ -65,5 +61,4 @@ export const locationsSlice = createSlice({
   },
 });
 
-export const { setLocation } = locationsSlice.actions;
 export default locationsSlice.reducer;

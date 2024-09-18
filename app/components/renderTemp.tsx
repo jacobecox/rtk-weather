@@ -1,9 +1,5 @@
 import { useSelector } from "react-redux";
 import { WeatherData, WeatherContainer } from "../store/slices/weather";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../store/configureStore";
-// import { setTemp } from "../store/slices/weather";
 import {
   Sparklines,
   SparklinesLine,
@@ -33,6 +29,9 @@ export default function RenderTemp() {
         const averageTotal = sum / tempArray?.length; //finds average temperature
         const tempAverage = Math.round(averageTotal); //rounds to whole number
 
+        if (condition === undefined) {
+          return; //if no conditions are passed through, do not return anything
+        }
         return (
           <div key={index} className="my-4">
             <Sparklines data={tempArray}>
