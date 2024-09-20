@@ -10,29 +10,23 @@ export default function SearchCity() {
     (state: LocationParams) => state.location.location
   );
 
-  console.log("locations:", locations);
-
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    if (locations === undefined) {
-      return;
-    } //if there is no data in locations just return
     dispatch(fetchWeather(locations));
   }, [dispatch, locations]);
 
   return locations?.map((location: LocationParams, index: number) => {
-    if (location === undefined) {
-      return (
-        <div key={index} className="text-center">
-          <p>Please enter a valid city name</p>
-        </div>
-      );
+    if (locations[locations.length - 1][0] === undefined) {
+      alert("Please enter a valid city name");
+      return;
+      // trying to address edge casing or invalid entry, alert is mapped in response but I could not figure out how to only alert once.
     }
-
     return (
-      //returning the city name
       <div key={index} className="text-center">
-        <p>{location[length].name}</p>
+        <br />
+        <br />
+        <p>{location[location.length - 1].name}</p>
+        <br />
         <br />
       </div>
     );

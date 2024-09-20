@@ -23,6 +23,7 @@ export interface LocationParams {
   name: string;
   lat: number;
   lon: number;
+  length: number;
   location: any;
 }
 

@@ -6,16 +6,15 @@ const API_KEY: string = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
 export const fetchWeather = createAsyncThunk<WeatherData, LocationParams>(
   "weather/fetchWeather",
-  async (locations: LocationParams) => {
-    if (locations === undefined) {
+  async (location: LocationParams) => {
+    // console.log("location:", location[length - 1][length - 1]);
+    const lastLocation = location[location.length - 1][0];
+
+    if (location === undefined) {
       return; // Don't make the API request if the query is empty
     }
-    locations?.map((location: LocationParams, index: number) => {
-      return location.lat, location.lon;
-    });
-
     const response = await axios.get(
-      `http://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}&units=imperial`
+      `http://api.openweathermap.org/data/2.5/forecast?lat=${lastLocation.lat}&lon=${lastLocation.lon}&appid=${API_KEY}&units=imperial`
     );
     return response.data;
   }
